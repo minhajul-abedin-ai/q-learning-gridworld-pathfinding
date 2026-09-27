@@ -1,0 +1,5 @@
+epsilon,converged_episode,episodes_run,final_30_episode_average
+0.1,35,35,10.966666666666667
+0.3,No stop,100,9.233333333333333
+0.5,No stop,100,5.8
+0.9,No stop,100,-30.566666666666666
