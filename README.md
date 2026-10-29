@@ -4,6 +4,14 @@ A reproducible Python implementation of a tabular **Q-learning** agent that lear
 
 This repository is a clean reconstruction of a reinforcement-learning project developed during MSc study. It is designed as a portfolio-ready GitHub project: the environment, agent, experiments, generated data and visualisations are all included.
 
+## Quick navigation for developers
+
+- **Learn the method:** [project idea](#project-idea), [Q-learning update](#q-learning-update) and [experiments](#experiments).
+- **Reproduce the run:** [installation](#installation) → [full experiment](#run-the-full-experiment) → [demo](#run-the-learned-policy-demo).
+- **Inspect the results:** [generated visualisations](#generated-visualisations) and [demo animation](#demo-animation).
+
+This is a **tabular Q-learning educational experiment**, not a deep-RL system or a benchmark claiming general-world performance. Related AI engineering projects are linked on the [author's profile](https://github.com/minhajul-abedin-ai).
+
 ## Project idea
 
 The agent begins at `(2, 1)` with no knowledge of the environment. It must learn a useful route to the goal at `(5, 5)` while dealing with:
