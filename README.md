@@ -179,7 +179,7 @@ q_learning_gridworld_repo/
 Clone the repository and create a virtual environment:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/q-learning-gridworld-pathfinding.git
+git clone https://github.com/minhajul-abedin-ai/q-learning-gridworld-pathfinding.git
 cd q-learning-gridworld-pathfinding
 python -m venv .venv
 ```
