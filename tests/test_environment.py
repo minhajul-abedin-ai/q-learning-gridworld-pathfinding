@@ -30,3 +30,30 @@ def test_goal_transition():
     assert transition.next_state == (5, 5)
     assert transition.reward == 10
     assert transition.done is True
+
+
+def test_goal_is_absorbing_and_does_not_repeat_terminal_reward():
+    env = GridWorld()
+    env.state = (5, 4)
+    first = env.step("E")
+    assert first.next_state == (5, 5)
+    assert first.reward == 10
+    assert first.done is True
+
+    for action in GridWorld.ACTIONS:
+        later = env.step(action)
+        assert later.next_state == (5, 5)
+        assert later.reward == 0
+        assert later.done is True
+        assert env.state == (5, 5)
+
+
+def test_reset_reopens_episode_after_terminal_goal():
+    env = GridWorld()
+    env.state = (5, 4)
+    assert env.step("E").done is True
+    assert env.reset() == (2, 1)
+    next_move = env.step("E")
+    assert next_move.next_state == (2, 2)
+    assert next_move.reward == -1
+    assert next_move.done is False
