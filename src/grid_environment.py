@@ -58,6 +58,11 @@ class GridWorld:
         if action not in self.ACTIONS:
             raise ValueError(f"Unknown action {action!r}. Expected one of {self.ACTIONS}.")
 
+        # A completed episode cannot be restarted by calling step again.
+        # The terminal reward is issued only when first entering the goal.
+        if self.state == self.goal_state:
+            return Transition(self.goal_state, 0.0, True)
+
         row, col = self.state
         d_row, d_col = self.ACTION_DELTAS[action]
         candidate = (row + d_row, col + d_col)
