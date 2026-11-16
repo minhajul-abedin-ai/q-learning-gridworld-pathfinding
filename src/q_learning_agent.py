@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 import numpy as np
 
 from .grid_environment import State
@@ -17,11 +19,11 @@ class QLearningAgent:
         epsilon: float = 0.1,
         seed: int = 42,
     ) -> None:
-        if not 0.0 <= alpha <= 1.0:
+        if not math.isfinite(alpha) or not 0.0 <= alpha <= 1.0:
             raise ValueError("alpha must be between 0 and 1")
-        if not 0.0 <= gamma <= 1.0:
+        if not math.isfinite(gamma) or not 0.0 <= gamma <= 1.0:
             raise ValueError("gamma must be between 0 and 1")
-        if not 0.0 <= epsilon <= 1.0:
+        if not math.isfinite(epsilon) or not 0.0 <= epsilon <= 1.0:
             raise ValueError("epsilon must be between 0 and 1")
 
         self.alpha = float(alpha)
