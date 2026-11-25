@@ -1,7 +1,7 @@
 name: Python tests and demo smoke
 on:
   push:
-    branches: [main]
+    branches: [main, verification/combined-q-tests-node24-20261125]
   pull_request:
     branches: [main]
 permissions:
