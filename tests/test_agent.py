@@ -61,3 +61,29 @@ def test_state_values_and_greedy_policy_use_action_axis():
     assert values[0, 0] == pytest.approx(7.0)
     assert policy[0, 0] == 2
     np.testing.assert_array_equal(values[1:, :], np.zeros((4, 5)))
+
+
+@pytest.mark.parametrize("state", [(0, 1), (1, 0), (6, 1), (1, 6), (-1, 2)])
+def test_select_action_rejects_out_of_grid_states(state):
+    agent = QLearningAgent(epsilon=0.0)
+    with pytest.raises(ValueError, match="state must be inside"):
+        agent.select_action(state)
+
+
+@pytest.mark.parametrize("action_index", [-1, 4, 1.5])
+def test_update_rejects_invalid_action_indices(action_index):
+    agent = QLearningAgent()
+    with pytest.raises(ValueError, match="action_index"):
+        agent.update((2, 1), action_index, 1.0, (2, 2), False)
+
+
+def test_nonterminal_update_rejects_out_of_grid_next_state():
+    agent = QLearningAgent()
+    with pytest.raises(ValueError, match="state must be inside"):
+        agent.update((2, 1), 0, 1.0, (0, 1), False)
+
+
+def test_terminal_update_does_not_index_unused_next_state():
+    agent = QLearningAgent(alpha=0.5)
+    agent.update((2, 1), 0, 10.0, (0, 0), True)
+    assert agent.q_table[1, 0, 0] == pytest.approx(5.0)
