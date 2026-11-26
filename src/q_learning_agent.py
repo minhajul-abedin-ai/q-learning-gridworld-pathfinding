@@ -35,6 +35,8 @@ class QLearningAgent:
     @staticmethod
     def _index(state: State):
         row, col = state
+        if not (1 <= row <= 5 and 1 <= col <= 5):
+            raise ValueError(f"state must be inside the 1-indexed 5x5 grid: {state!r}")
         return row - 1, col - 1
 
     def select_action(self, state: State) -> int:
@@ -59,12 +61,14 @@ class QLearningAgent:
     ) -> None:
         """Apply the standard Q-learning Temporal Difference update."""
         row, col = self._index(state)
-        next_row, next_col = self._index(next_state)
+        if not isinstance(action_index, (int, np.integer)) or not 0 <= action_index < 4:
+            raise ValueError("action_index must be an integer between 0 and 3")
 
         current = self.q_table[row, col, action_index]
         if done:
             target = reward
         else:
+            next_row, next_col = self._index(next_state)
             target = reward + self.gamma * np.max(self.q_table[next_row, next_col])
 
         self.q_table[row, col, action_index] = current + self.alpha * (target - current)
